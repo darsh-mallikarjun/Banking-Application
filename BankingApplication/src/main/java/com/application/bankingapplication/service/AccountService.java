@@ -1,5 +1,7 @@
 package com.application.bankingapplication.service;
 
+import java.util.List;
+
 import com.application.bankingapplication.dto.AccountDto;
 import com.application.bankingapplication.entity.Account;
 
@@ -15,5 +17,7 @@ public interface AccountService {
 	AccountDto WithdrawAmount(Long id , double Amount);
 
 	String verify(Account accountDto);
+
+	List<Account> getAll();
 
 }

@@ -1,5 +1,7 @@
 package com.application.bankingapplication.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -72,13 +74,23 @@ public class AccServiceImpl implements AccountService{
 
 	@Override
 	public String verify(Account accountDto) {
-		Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(accountDto.getName(), accountDto.getPin()));
+		Authentication auth =
+				authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(accountDto.getName(), accountDto.getPin()));
 		if(auth.isAuthenticated()) {
-			return "success";
-		} else {
-		 throw new RuntimeException("Insuffient balance") ;
-	}
+			return jwtService.generateToken(accountDto.getName());
+			
+	
+}
+		return "fail";
+		
 	}
 
+
+	@Override
+	public List<Account> getAll() {
+		// TODO Auto-generated method stub
+		return accountRepo.findAll();
+	}
+	
 }
 

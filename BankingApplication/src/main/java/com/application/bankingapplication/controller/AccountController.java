@@ -1,9 +1,11 @@
 package com.application.bankingapplication.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +19,9 @@ import com.application.bankingapplication.dto.AccountDto;
 import com.application.bankingapplication.entity.Account;
 import com.application.bankingapplication.service.AccountService;
 
-@RestController
 
+@CrossOrigin(origins = "http://localhost:3000")
+@RestController
 public class AccountController {
 	
 	
@@ -37,8 +40,14 @@ public class AccountController {
 		
 	}
 	
+	@GetMapping("/Accounts")
+	public List<Account> getAllAccount() {
+		return accountService.getAll();
+		
+	}
 	
-    @PostMapping("/create")
+	
+    @PostMapping("/Register")
 	public ResponseEntity<AccountDto> createAcc(@RequestBody AccountDto accountDto) {
 		return new ResponseEntity<>( accountService.createAccount(accountDto) , HttpStatus.CREATED);
 		
